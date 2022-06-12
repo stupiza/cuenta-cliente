@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MovimientoServiceImp.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../../doc-style.css" />
+  <script src="../../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\service\\imp\\MovimientoServiceImp.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>MovimientoServiceImp.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.service.imp;
+
+
+<span class="hljs-keyword">import</span> java.text.SimpleDateFormat;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.Date;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.Optional;
+
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Qualifier;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+
+<span class="hljs-keyword">import</span> com.api.cuentacliente.entity.Cliente;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.entity.Cuenta;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.entity.Movimiento;
+
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.MovimientoModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.MovimientoModelRequest;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ReporteCuentaModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ReporteModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ReporteModelRequest;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ReporteMovimientoModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.RetornoModel;
+
+<span class="hljs-keyword">import</span> com.api.cuentacliente.repository.MovimientoRepository;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.service.IClienteService;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.service.ICuentaService;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.service.IMovimientoService;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.utils.ConverterDTO;
+
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">"movimientoService"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MovimientoServiceImp</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IMovimientoService</span> </span>{
+
+	<span class="hljs-meta">@Autowired</span>()
+	<span class="hljs-meta">@Qualifier</span>(<span class="hljs-string">"movimientoRepository"</span>)
+	MovimientoRepository movimientoRepository;
+
+	<span class="hljs-meta">@Autowired</span>()
+	IClienteService clienteService;
+
+	<span class="hljs-meta">@Autowired</span>()
+	ICuentaService cuentaService;
+
+	<span class="hljs-meta">@Autowired</span>
+	<span class="hljs-meta">@Qualifier</span>(<span class="hljs-string">"converterDTO"</span>)
+	<span class="hljs-keyword">private</span> ConverterDTO converterDTO;
+
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Double MONTODIARIO = <span class="hljs-number">1000.00</span>;
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> SimpleDateFormat sdf = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">"yyyy-MM-dd"</span>);
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> MovimientoModelRequest <span class="hljs-title">listarMovimientos</span><span class="hljs-params">()</span> </span>{
+		MovimientoModelRequest movimientoModelRequest = <span class="hljs-keyword">new</span> MovimientoModelRequest();
+		List&lt;MovimientoModel&gt; listaMovimientoModel = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+		List&lt;Movimiento&gt; resultadoMovimiento = movimientoRepository.findAll();
+		
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		<span class="hljs-keyword">try</span> {
+
+			<span class="hljs-keyword">if</span> (resultadoMovimiento.isEmpty()) {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO EXISTEN REGISTROS!!"</span>);
+				movimientoModelRequest.setMensaje(retornoModel);
+				<span class="hljs-keyword">return</span> movimientoModelRequest;
+			}
+			<span class="hljs-keyword">for</span> (Movimiento movimiento : resultadoMovimiento) {
+				MovimientoModel pmi = (MovimientoModel) converterDTO.converterToModel(movimiento,
+						MovimientoModel<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+				listaMovimientoModel.add(pmi);
+			}
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+		retornoModel.setCodigo(<span class="hljs-number">0</span>);
+		retornoModel.setMensaje(<span class="hljs-string">"RECUPERADOS!!"</span>);
+		movimientoModelRequest.setMensaje(retornoModel);
+		movimientoModelRequest.setMovimiento(listaMovimientoModel);
+		<span class="hljs-keyword">return</span> movimientoModelRequest;
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> RetornoModel <span class="hljs-title">registrarMovimiento</span><span class="hljs-params">(MovimientoModel movimientoModel)</span> </span>{
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		<span class="hljs-keyword">double</span> valorConSigno = movimientoModel.getValorMovimiento();		
+		<span class="hljs-keyword">try</span> {
+			String fechaMovimiento = sdf.format(movimientoModel.getFechaMovimiento());
+			movimientoModel.setFechaMovimiento(sdf.parse(fechaMovimiento));
+			Optional&lt;Cuenta&gt; cuenta = cuentaService.listarCuentasPorCodigo(movimientoModel.getCodigoCuenta());
+			<span class="hljs-keyword">if</span> (cuenta.isPresent()) {
+				<span class="hljs-keyword">if</span> (movimientoModel.getTipoMovimiento().equals(<span class="hljs-string">"D"</span>)) {
+					<span class="hljs-keyword">if</span> (cuenta.get().getSaldoCuenta().compareTo(movimientoModel.getValorMovimiento()) &lt; <span class="hljs-number">0</span>) {
+						retornoModel.setCodigo(<span class="hljs-number">1</span>);
+						retornoModel.setMensaje(<span class="hljs-string">"SALDO NO DISPONIBLE!!"</span>);
+						<span class="hljs-keyword">return</span> retornoModel;
+					}
+
+					Double cupo = acumularMovimiento(cuenta.get().getCodigoCuenta())
+							+ movimientoModel.getValorMovimiento();
+					<span class="hljs-keyword">if</span> (cupo.compareTo(MONTODIARIO) &gt; <span class="hljs-number">0</span>) {
+						retornoModel.setCodigo(<span class="hljs-number">1</span>);
+						retornoModel.setMensaje(<span class="hljs-string">"CUPO DIARIO EXCEDIDO!!"</span>);
+						<span class="hljs-keyword">return</span> retornoModel;
+					}
+					
+					valorConSigno = valorConSigno * -<span class="hljs-number">1</span>;
+					cuenta.get().setSaldoCuenta(cuenta.get().getSaldoCuenta() - movimientoModel.getValorMovimiento());
+				} <span class="hljs-keyword">else</span> {
+					cuenta.get().setSaldoCuenta(cuenta.get().getSaldoCuenta() + movimientoModel.getValorMovimiento());
+				}
+				
+			} <span class="hljs-keyword">else</span> {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO EXISTE CUENTA!!"</span>);
+				<span class="hljs-keyword">return</span> retornoModel;
+			}
+			movimientoModel.setValorMovimiento(valorConSigno);
+			movimientoModel.setSaldoMovimiento(cuenta.get().getSaldoCuenta());
+			Movimiento cuentaEntity = (Movimiento) converterDTO.converterToModel(movimientoModel, Movimiento<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+			Movimiento cuentaRetorno = movimientoRepository.save(cuentaEntity);
+			<span class="hljs-keyword">if</span> (cuentaRetorno.getCodigoMovimiento() == <span class="hljs-keyword">null</span>) {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO SE PUDO GUARDAR!!"</span>);
+			} <span class="hljs-keyword">else</span> {
+				retornoModel.setCodigo(<span class="hljs-number">0</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"REGISTRO GUARDADO!!"</span>);
+			}
+
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+
+		<span class="hljs-keyword">return</span> retornoModel;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">private</span> Double <span class="hljs-title">acumularMovimiento</span><span class="hljs-params">(Integer cuenta)</span> </span>{
+		Double suma = <span class="hljs-number">0.0</span>;
+		<span class="hljs-keyword">try</span> {
+			List&lt;Movimiento&gt; movimientoCuenta = movimientoRepository.findMovimientoByCuentaDebito(cuenta);
+			<span class="hljs-keyword">for</span> (Movimiento movimiento : movimientoCuenta) {
+				suma += Math.abs(movimiento.getValorMovimiento());
+			}
+			
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+
+		<span class="hljs-keyword">return</span> suma;
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> ReporteModelRequest <span class="hljs-title">reportarMovimientosPorFechaCliente</span><span class="hljs-params">(String fechaDesde, String fechaHasta,
+			Integer cliente)</span> </span>{
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		ReporteModel reporteModel = <span class="hljs-keyword">new</span> ReporteModel();
+		List&lt;ReporteMovimientoModel&gt; listaMovimiento = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+		List&lt;ReporteCuentaModel&gt; listaCuentaCliente = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+		List&lt;ReporteModel&gt; listaReporteModel = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+		ReporteModelRequest reporteModelRequest = <span class="hljs-keyword">new</span> ReporteModelRequest();
+		<span class="hljs-keyword">try</span> {
+			Date fechaInicial = sdf.parse(fechaDesde);
+			Date fechaFinal = sdf.parse(fechaHasta);			
+			<span class="hljs-keyword">if</span> (fechaInicial.compareTo(fechaFinal) &gt; <span class="hljs-number">0</span>) {
+
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"INCOSISTENCIA EN FECHAS!!"</span>);
+				reporteModelRequest.setMensaje(retornoModel);
+				<span class="hljs-keyword">return</span> reporteModelRequest;
+			}
+
+			Optional&lt;Cliente&gt; listCliente = clienteService.listarClientePorCodigo(cliente);
+			<span class="hljs-keyword">if</span> (listCliente.isPresent()) {
+				List&lt;Cuenta&gt; listaCuenta = cuentaService.listarCuentasPorCliente(cliente);
+				<span class="hljs-keyword">for</span> (Cuenta cuenta : listaCuenta) {
+					ReporteCuentaModel reporteCuentaModel = <span class="hljs-keyword">new</span> ReporteCuentaModel();
+					reporteCuentaModel.setNumeroCuenta(cuenta.getNumeroCuenta());
+					reporteCuentaModel.setTipoCuenta(cuenta.getTipoCuenta());
+					reporteCuentaModel.setSaldoInicial(cuenta.getSaldoCuenta());
+					reporteCuentaModel.setEstado(cuenta.isEstadoCuenta());
+					List&lt;Movimiento&gt; listaMovimientoCuenta = movimientoRepository
+							.findMovimientoByCuenta(cuenta.getCodigoCuenta(), fechaInicial, fechaFinal);
+					<span class="hljs-keyword">for</span> (Movimiento movimiento : listaMovimientoCuenta) {
+						ReporteMovimientoModel reporteMovimientoModel = <span class="hljs-keyword">new</span> ReporteMovimientoModel();
+						String fechaMovimiento = sdf.format(movimiento.getFechaMovimiento());
+						reporteMovimientoModel.setFecha(fechaMovimiento);
+						reporteMovimientoModel.setMovimiento(movimiento.getValorMovimiento());
+						reporteMovimientoModel.setSaldoDisponible(movimiento.getSaldoMovimiento());
+						listaMovimiento.add(reporteMovimientoModel);
+					}
+					reporteCuentaModel.setMovimiento(listaMovimiento);
+					listaCuentaCliente.add(reporteCuentaModel);
+				}
+				reporteModel.setCliente(listCliente.get().getNombre());
+				reporteModel.setCuenta(listaCuentaCliente);
+				listaReporteModel.add(reporteModel);
+			} <span class="hljs-keyword">else</span> {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO EXISTE CLIENTE!!"</span>);
+				reporteModelRequest.setMensaje(retornoModel);
+				<span class="hljs-keyword">return</span> reporteModelRequest;
+			}
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+		retornoModel.setCodigo(<span class="hljs-number">0</span>);
+		retornoModel.setMensaje(<span class="hljs-string">"REGISTROS RECUPERADOS!!"</span>);
+		reporteModelRequest.setMensaje(retornoModel);
+		reporteModelRequest.setMovimiento(listaReporteModel);
+		<span class="hljs-keyword">return</span> reporteModelRequest;
+
+	}
+	
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> RetornoModel <span class="hljs-title">eliminarMovimiento</span><span class="hljs-params">(Integer id)</span> </span>{
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		<span class="hljs-keyword">try</span> {
+			movimientoRepository.deleteById(id);
+			retornoModel.setCodigo(<span class="hljs-number">1</span>);
+			retornoModel.setMensaje(<span class="hljs-string">"REGISTRO ELIMINADO!!"</span>);
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>TODO: handle exception</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java">		}				
+		<span class="hljs-keyword">return</span> retornoModel;
+	}
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

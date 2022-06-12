@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cliente.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../doc-style.css" />
+  <script src="../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\entity\\Cliente.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Cliente.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.entity;
+
+<span class="hljs-keyword">import</span> javax.persistence.Column;
+<span class="hljs-keyword">import</span> javax.persistence.Entity;
+<span class="hljs-keyword">import</span> javax.persistence.GeneratedValue;
+<span class="hljs-keyword">import</span> javax.persistence.GenerationType;
+<span class="hljs-keyword">import</span> javax.persistence.Id;
+<span class="hljs-keyword">import</span> javax.persistence.Table;
+
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"cc_cliente"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cliente</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Persona</span> </span>{
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Cliente</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">super</span>();
+		
+	}
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+	<span class="hljs-meta">@Id</span>
+	<span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)	
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"cl_codigo"</span>)
+	<span class="hljs-keyword">private</span> Integer codigoCliente;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"cl_clave"</span>)
+	<span class="hljs-keyword">private</span> String clave;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"cl_estado"</span>)
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> estado;
+
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCodigoCliente</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> codigoCliente;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCodigoCliente</span><span class="hljs-params">(Integer codigoCliente)</span> </span>{
+		<span class="hljs-keyword">this</span>.codigoCliente = codigoCliente;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getClave</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> clave;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setClave</span><span class="hljs-params">(String clave)</span> </span>{
+		<span class="hljs-keyword">this</span>.clave = clave;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEstado</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> estado;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setEstado</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> estado)</span> </span>{
+		<span class="hljs-keyword">this</span>.estado = estado;
+	}
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

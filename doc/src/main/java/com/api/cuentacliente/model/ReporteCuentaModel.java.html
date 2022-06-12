@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ReporteCuentaModel.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../doc-style.css" />
+  <script src="../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\model\\ReporteCuentaModel.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>ReporteCuentaModel.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.model;
+
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReporteCuentaModel</span> </span>{
+    
+	<span class="hljs-keyword">private</span> String numeroCuenta;
+	<span class="hljs-keyword">private</span> String tipoCuenta;
+	<span class="hljs-keyword">private</span> Double saldoInicial;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> estado;
+	<span class="hljs-keyword">private</span> List&lt;ReporteMovimientoModel&gt; movimiento;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getNumeroCuenta</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> numeroCuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setNumeroCuenta</span><span class="hljs-params">(String numeroCuenta)</span> </span>{
+		<span class="hljs-keyword">this</span>.numeroCuenta = numeroCuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getTipoCuenta</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> tipoCuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTipoCuenta</span><span class="hljs-params">(String tipoCuenta)</span> </span>{
+		<span class="hljs-keyword">this</span>.tipoCuenta = tipoCuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Double <span class="hljs-title">getSaldoInicial</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> saldoInicial;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSaldoInicial</span><span class="hljs-params">(Double saldoInicial)</span> </span>{
+		<span class="hljs-keyword">this</span>.saldoInicial = saldoInicial;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEstado</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> estado;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setEstado</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> estado)</span> </span>{
+		<span class="hljs-keyword">this</span>.estado = estado;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;ReporteMovimientoModel&gt; <span class="hljs-title">getMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> movimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMovimiento</span><span class="hljs-params">(List&lt;ReporteMovimientoModel&gt; movimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.movimiento = movimiento;
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"ReporteCuentaModel [numeroCuenta="</span> + numeroCuenta + <span class="hljs-string">", tipoCuenta="</span> + tipoCuenta + <span class="hljs-string">", saldoInicial="</span>
+				+ saldoInicial + <span class="hljs-string">", estado="</span> + estado + <span class="hljs-string">", movimiento="</span> + movimiento + <span class="hljs-string">"]"</span>;
+	}
+
+	
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

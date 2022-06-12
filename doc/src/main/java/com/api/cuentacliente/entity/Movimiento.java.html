@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movimiento.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../doc-style.css" />
+  <script src="../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\entity\\Movimiento.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>Movimiento.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.entity;
+
+<span class="hljs-keyword">import</span> java.io.Serializable;
+<span class="hljs-keyword">import</span> java.util.Date;
+
+<span class="hljs-keyword">import</span> javax.persistence.Column;
+<span class="hljs-keyword">import</span> javax.persistence.Entity;
+<span class="hljs-keyword">import</span> javax.persistence.GeneratedValue;
+<span class="hljs-keyword">import</span> javax.persistence.GenerationType;
+<span class="hljs-keyword">import</span> javax.persistence.Id;
+<span class="hljs-keyword">import</span> javax.persistence.JoinColumn;
+<span class="hljs-keyword">import</span> javax.persistence.ManyToOne;
+<span class="hljs-keyword">import</span> javax.persistence.NamedQueries;
+<span class="hljs-keyword">import</span> javax.persistence.NamedQuery;
+<span class="hljs-keyword">import</span> javax.persistence.Table;
+
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"cc_movimiento"</span>)
+<span class="hljs-meta">@NamedQueries</span>({
+    <span class="hljs-meta">@NamedQuery</span>(name = <span class="hljs-string">"Movimiento.findMovimientoByCuentaDebito"</span>, query = <span class="hljs-string">"SELECT c FROM Movimiento c where c.cuenta.codigoCuenta = ?1 and c.tipoMovimiento = 'D'"</span>),
+    <span class="hljs-meta">@NamedQuery</span>(name = <span class="hljs-string">"Movimiento.findMovimientoByCuenta"</span>, query = <span class="hljs-string">"SELECT c FROM Movimiento c where c.cuenta.codigoCuenta = ?1 and c.fechaMovimiento &gt;= ?2 and c.fechaMovimiento &lt;= ?3  "</span>)
+    
+})
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Movimiento</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+	<span class="hljs-meta">@Id</span>
+	<span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"mo_codigo"</span>)
+	<span class="hljs-keyword">private</span> Integer codigoMovimiento;
+
+	<span class="hljs-meta">@ManyToOne</span> <span class="hljs-comment">// (optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)</span>
+	<span class="hljs-meta">@JoinColumn</span>(name = <span class="hljs-string">"cu_codigo"</span>)
+	<span class="hljs-keyword">private</span> Cuenta cuenta;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"mo_fecha"</span>)
+	<span class="hljs-keyword">private</span> Date fechaMovimiento;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"mo_tipo_mov"</span>)
+	<span class="hljs-keyword">private</span> String tipoMovimiento;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"mo_valor"</span>)
+	<span class="hljs-keyword">private</span> Double valorMovimiento;
+
+	<span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"mo_saldo"</span>)
+	<span class="hljs-keyword">private</span> Double saldoMovimiento;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Cuenta <span class="hljs-title">getCuenta</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> cuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCuenta</span><span class="hljs-params">(Cuenta cuenta)</span> </span>{
+		<span class="hljs-keyword">this</span>.cuenta = cuenta;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getCodigoMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> codigoMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCodigoMovimiento</span><span class="hljs-params">(Integer codigoMovimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.codigoMovimiento = codigoMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Date <span class="hljs-title">getFechaMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> fechaMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFechaMovimiento</span><span class="hljs-params">(Date fechaMovimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.fechaMovimiento = fechaMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getTipoMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> tipoMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTipoMovimiento</span><span class="hljs-params">(String tipoMovimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.tipoMovimiento = tipoMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Double <span class="hljs-title">getValorMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> valorMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setValorMovimiento</span><span class="hljs-params">(Double valorMovimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.valorMovimiento = valorMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Double <span class="hljs-title">getSaldoMovimiento</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> saldoMovimiento;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSaldoMovimiento</span><span class="hljs-params">(Double saldoMovimiento)</span> </span>{
+		<span class="hljs-keyword">this</span>.saldoMovimiento = saldoMovimiento;
+	}
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-string">"Movimiento [codigoMovimiento="</span> + codigoMovimiento + <span class="hljs-string">", fechaMovimiento="</span> + fechaMovimiento
+				+ <span class="hljs-string">", tipoMovimiento="</span> + tipoMovimiento + <span class="hljs-string">", valorMovimiento="</span> + valorMovimiento + <span class="hljs-string">", saldoMovimiento="</span>
+				+ saldoMovimiento + <span class="hljs-string">"]"</span>;
+	}
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

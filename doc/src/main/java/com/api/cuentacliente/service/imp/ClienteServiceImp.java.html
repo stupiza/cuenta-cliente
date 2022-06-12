@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClienteServiceImp.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../../doc-style.css" />
+  <script src="../../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\service\\imp\\ClienteServiceImp.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>ClienteServiceImp.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.service.imp;
+
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.Optional;
+
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Qualifier;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
+
+<span class="hljs-keyword">import</span> com.api.cuentacliente.entity.Cliente;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ClienteModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.ClienteModelRequest;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.model.RetornoModel;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.repository.ClienteRepository;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.service.IClienteService;
+<span class="hljs-keyword">import</span> com.api.cuentacliente.utils.ConverterDTO;
+
+
+
+<span class="hljs-meta">@Service</span>(<span class="hljs-string">"clienteservice"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClienteServiceImp</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IClienteService</span> </span>{
+
+	<span class="hljs-meta">@Autowired</span>()
+	<span class="hljs-meta">@Qualifier</span>(<span class="hljs-string">"clienteRepository"</span>)
+	ClienteRepository clienteRepository;
+
+	<span class="hljs-meta">@Autowired</span>
+	<span class="hljs-meta">@Qualifier</span>(<span class="hljs-string">"converterDTO"</span>)
+	<span class="hljs-keyword">private</span> ConverterDTO converterDTO;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Listar todos los clientes</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java">	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> ClienteModelRequest <span class="hljs-title">listarClientes</span><span class="hljs-params">()</span> </span>{
+		ClienteModelRequest clienteModelRequest = <span class="hljs-keyword">new</span> ClienteModelRequest();
+		List&lt;ClienteModel&gt; listaclienteModel = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+		List&lt;Cliente&gt; resultadoCliente = clienteRepository.findAll();
+		
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		<span class="hljs-keyword">try</span> {
+
+			<span class="hljs-keyword">if</span> (resultadoCliente.isEmpty()) {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO EXISTEN REGISTROS!!"</span>);
+				clienteModelRequest.setMensaje(retornoModel);
+				<span class="hljs-keyword">return</span> clienteModelRequest;
+			}
+			<span class="hljs-keyword">for</span> (Cliente poi : resultadoCliente) {
+				ClienteModel pmi = (ClienteModel) converterDTO.converterToModel(poi, ClienteModel<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+				listaclienteModel.add(pmi);
+			}
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+		retornoModel.setCodigo(<span class="hljs-number">0</span>);
+		retornoModel.setMensaje(<span class="hljs-string">"RECUPERADOS!!"</span>);
+		clienteModelRequest.setMensaje(retornoModel);
+		clienteModelRequest.setCliente(listaclienteModel);
+		<span class="hljs-keyword">return</span> clienteModelRequest;
+	}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Registro de nuevo cliente</p>
+</div>
+<div class="body">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java">	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> RetornoModel <span class="hljs-title">registrarCliente</span><span class="hljs-params">(ClienteModel clienteModel)</span> </span>{
+		RetornoModel retornoModel = <span class="hljs-keyword">new</span> RetornoModel();
+		<span class="hljs-keyword">try</span> {
+			
+			Cliente clienteEntity = (Cliente) converterDTO.converterToModel(clienteModel, Cliente<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;		
+			Cliente clienteRetorno = clienteRepository.save(clienteEntity);
+			<span class="hljs-keyword">if</span> (clienteRetorno.getCodigoCliente() == <span class="hljs-keyword">null</span>) {
+				retornoModel.setCodigo(<span class="hljs-number">1</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"NO SE PUDO GUARDAR!!"</span>);
+			} <span class="hljs-keyword">else</span> {
+				retornoModel.setCodigo(<span class="hljs-number">0</span>);
+				retornoModel.setMensaje(<span class="hljs-string">"REGISTRO GUARDADO!!"</span>);
+			}
+
+		} <span class="hljs-keyword">catch</span> (Exception e) {
+			e.printStackTrace();
+		}
+
+		<span class="hljs-keyword">return</span> retornoModel;
+
+	}
+	
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Optional&lt;Cliente&gt; <span class="hljs-title">listarClientePorCodigo</span><span class="hljs-params">(Integer cliente)</span> </span>{				
+		<span class="hljs-keyword">return</span>  clienteRepository.findById(cliente);		
+	} 
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

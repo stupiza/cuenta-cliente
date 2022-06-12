@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ResponseExceptionHandler.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../doc-style.css" />
+  <script src="../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\exception\\ResponseExceptionHandler.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>ResponseExceptionHandler.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.exception;
+
+<span class="hljs-keyword">import</span> org.springframework.dao.DataIntegrityViolationException;
+<span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;
+<span class="hljs-keyword">import</span> org.springframework.http.ResponseEntity;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ControllerAdvice;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ResponseStatus;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Manejador automatico de exepciones</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-meta">@ControllerAdvice</span>  <span class="hljs-comment">//escucha si se presenta alguna excepcion en todos los controladores automatico</span>
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResponseExceptionHandler</span> </span>{
+	
+	<span class="hljs-meta">@ExceptionHandler</span>(DataIntegrityViolationException<span class="hljs-class">.<span class="hljs-keyword">class</span>)//<span class="hljs-title">escucha</span> <span class="hljs-title">siempre</span> <span class="hljs-title">el</span> <span class="hljs-title">manejador</span> <span class="hljs-title">de</span> <span class="hljs-title">excepiones</span>
+	@<span class="hljs-title">ResponseStatus</span>(<span class="hljs-title">HttpStatus</span>.<span class="hljs-title">CONFLICT</span>)  //<span class="hljs-title">escucha</span> <span class="hljs-title">siempre</span> <span class="hljs-title">el</span> <span class="hljs-title">manejador</span> <span class="hljs-title">de</span> <span class="hljs-title">excepiones</span>
+	<span class="hljs-title">public</span> <span class="hljs-title">ResponseEntity</span>&lt;<span class="hljs-title">Object</span>&gt; <span class="hljs-title">conflict</span>(<span class="hljs-title">DataIntegrityViolationException</span> <span class="hljs-title">ex</span>)</span>{<span class="hljs-comment">//manejo de errores personalizado</span>
+		ResponseException response = <span class="hljs-keyword">new</span> ResponseException(HttpStatus.CONFLICT.value(), <span class="hljs-string">"Conflicto"</span>,ex.getMessage());
+		
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ResponseEntity&lt;Object&gt;(response, HttpStatus.CONFLICT);
+	}
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

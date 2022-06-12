@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ResponseException.java</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../../doc-style.css" />
+  <script src="../../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../../";
+    var thisFile = "src\\main\\java\\com\\api\\cuentacliente\\exception\\ResponseException.java";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../../../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>ResponseException.java</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">package</span> com.api.cuentacliente.exception;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<div class="dox">
+<div class="summary">
+<p>Clase para controlar las excepciones personalizadas</p>
+</div>
+<div class="body">
+</div>
+<div class="details">
+</div>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResponseException</span> </span>{
+
+	<span class="hljs-keyword">private</span> Integer status;
+	<span class="hljs-keyword">private</span> String mensaje;
+	<span class="hljs-keyword">private</span> String detalle;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ResponseException</span><span class="hljs-params">(Integer status, String mensaje, String detalle)</span> </span>{
+		<span class="hljs-keyword">this</span>.status = status;
+		<span class="hljs-keyword">this</span>.mensaje = mensaje;
+		<span class="hljs-keyword">this</span>.detalle = detalle;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getStatus</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> status;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setStatus</span><span class="hljs-params">(Integer status)</span> </span>{
+		<span class="hljs-keyword">this</span>.status = status;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getMensaje</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> mensaje;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMensaje</span><span class="hljs-params">(String mensaje)</span> </span>{
+		<span class="hljs-keyword">this</span>.mensaje = mensaje;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getDetalle</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> detalle;
+	}
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setDetalle</span><span class="hljs-params">(String detalle)</span> </span>{
+		<span class="hljs-keyword">this</span>.detalle = detalle;
+	}
+
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
